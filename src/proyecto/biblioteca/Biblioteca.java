@@ -128,6 +128,28 @@ public class Biblioteca {
     }
     
     //Funcion para volver a agregar un libro a los disponibles
+    public void devolver_A_Biblioteca(Libro devolucion){
+        boolean bandera = false;
+        for (int x = 0; x < Libros.size(); x++) {
+            if (Libros.get(x).get(0).getNombre() == devolucion.getNombre()){
+                //Si encuentra donde debe ir se agrega donde debe ir
+                Libros.get(x).add(devolucion);
+                bandera = true;
+                break;
+            }else{
+                //No haga nada
+            }
+        }
+        //Si no lo encontro entonces hace una nueva lista y se agrega
+        if (bandera){
+            //No haga nada
+        }else{
+            List<Libro> nueva = new ArrayList<Libro>();
+            nueva.add(devolucion);
+            Libros.add(nueva);
+        }
+        
+    }
     
     //Funcion para devolver un libro
     public void devolver_Libro(){
@@ -159,10 +181,27 @@ public class Biblioteca {
             Libro devuelto = alquilados.get(devolucion);
             if (hoy.before(devuelto.getFecha_Devolucion()) || hoy.equals(devuelto.getFecha_Devolucion())){
                 //Si no esta tarde para la devolucion no hay morosidad y se puede devolver
-                //Se elimina el libro del estudiante y se borran la fechas; luego se vuelve a anadir a la lista de libros 
+                //Se elimina el libro del estudiante y se borran las fechas; luego se vuelve a anadir a la lista de libros 
+                devuelto.setFecha_Devolucion(null);
+                devuelto.setFecha_Entregado(null);
                 alquilados.remove(devuelto); //Eliminamos el libro de la lista
                 sujeto.setLibros_Alquilados(alquilados); //Se actualiza la lista del estudiante
+                //Se anade a la biblioteca de nuevo
+                devolver_A_Biblioteca(devuelto);
+            }else{
+                System.out.println("Porfavor pague sus morosidades");
             }
+        }else{
+            System.out.println("Porfavor ingrese un carnet valido");
+        }
+    }
+    
+    public void pagar_Morosidad(String carnet){
+        int indice_est = buscaEstudiante(carnet);
+        if (indice_est >= 0){
+            Estudiantes.get(indice_est).setMorosidades(0); //Se ponen las moridades en 0
+        }else{
+            System.out.println("Porfavor seleccione otro carnet");
         }
     }
 
