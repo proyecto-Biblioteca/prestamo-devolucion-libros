@@ -5,9 +5,7 @@
  */
 package proyecto.biblioteca;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -18,6 +16,7 @@ public class Biblioteca {
     private Estudiante[] Estudiantes;
     private Libro[][] Libros;
     private static int COBRO_MOROSIDAD = 50; //CUANTO COBRA POR DIA MOROSO
+    private static int DIAS_ALQUILER = 7;
     
     //Getters y Setters
     public Estudiante[] getEstudiantes() {
@@ -60,10 +59,10 @@ public class Biblioteca {
         //Primero buscamos al estudiante en la lista de estudiantes
         Estudiante sujeto = Estudiantes[buscaEstudiante(carnet)];
         
-        Libro[] alquilados = sujeto.getLibros_Alquilados();
+        List<Libro> alquilados = sujeto.getLibros_Alquilados();
         
         //Despues vemos si tiene algun libro alquilado
-        if (alquilados.length == 0){
+        if (alquilados.isEmpty()){
             
             //Si no tiene libros no tiene morosidades
             
@@ -74,12 +73,12 @@ public class Biblioteca {
             hoy.setTime(new Date()); //Obtiene la fecha actual
             
             //Comparamos la fecha de entrega de cada libro para ver que no este moroso
-            for (int x = 0; x < alquilados.length; x++){
-                if (hoy.before(alquilados[x].getFecha_Devolucion()) || hoy.equals(alquilados[x].getFecha_Devolucion())){
+            for (int x = 0; x < alquilados.size(); x++){
+                if (hoy.before(alquilados.get(x).getFecha_Devolucion()) || hoy.equals(alquilados.get(x).getFecha_Devolucion())){
                     //Si no esta tarde para la devolucion no hay morosidad
                 }else{
                     //Si esta tarde se calcula la morosidad
-                    int dias =  daysBetween(hoy.getTime(), alquilados[x].getFecha_Devolucion().getTime());
+                    int dias =  daysBetween(hoy.getTime(), alquilados.get(x).getFecha_Devolucion().getTime());
                     result += dias * COBRO_MOROSIDAD;
                 }
             }
@@ -107,6 +106,21 @@ public class Biblioteca {
                 
                 //Si no tiene morosidades si puede alquilar libros
                 //Se imprime la lista de libros disponibles
+                Scanner scanner2 = new Scanner(System.in);
+                System.out.println("Porfavor Ingrese su carnet: ");
+                int libro_Deseado = Integer.parseInt(scanner.nextLine()); //Convertimos la opcion en int
+                
+                //Ahora tomamos uno de los libros diponibles y se lo asignamos al estudiante
+                Libro alquilado = Libros[libro_Deseado][0]; //Tomamos el primero (indice 0)
+                Calendar hoy = Calendar.getInstance();
+                hoy.setTime(new Date()); //Toma el dia actual
+                alquilado.setFecha_Entregado(hoy); //Se pone que dia fue alquilado
+                hoy.add(Calendar.DATE, DIAS_ALQUILER); //Modificamos la fecha para su devolucion
+                alquilado.setFecha_Devolucion(hoy); //Se pone la fecha de devoluvion
+                
+                //Ahora le asignamos el libro al estudiante
+                sujeto.agrega_Libro(alquilado);
+                System.out.println("El libro fue alquilado de manera correcta");
             }
         }
     }

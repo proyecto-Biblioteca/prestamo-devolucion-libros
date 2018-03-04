@@ -5,6 +5,8 @@
  */
 package proyecto.biblioteca;
 
+import java.util.*;
+
 /**
  *
  * @author Joseph Salas
@@ -15,7 +17,7 @@ public class Estudiante {
     private String Carnet;
     private String Clave;
     private int Morosidades = 0; //Comienza sin morosidades
-    private Libro[] Libros_Alquilados;
+    private List<Libro> Libros_Alquilados;
     
     //Constructor
     public Estudiante(String nombre, String carnet, String clave) {
@@ -58,12 +60,17 @@ public class Estudiante {
         Morosidades = morosidades;
     }
     
-    public Libro[] getLibros_Alquilados() {
+    public List<Libro> getLibros_Alquilados() {
         return Libros_Alquilados;
     }
     
-    public void setLibros_Alquilados(Libro[] libros_Alquilados) {
+    public void setLibros_Alquilados(List<Libro> libros_Alquilados) {
         Libros_Alquilados = libros_Alquilados;
+    }
+    
+    //Funcion para agregar un libro a un estudiante
+    public void agrega_Libro(Libro libro_PA){
+        this.Libros_Alquilados.add(libro_PA);
     }
 
     
