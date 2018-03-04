@@ -13,33 +13,33 @@ import java.util.*;
  */
 public class Biblioteca {
 
-    private Estudiante[] Estudiantes;
-    private Libro[][] Libros;
+    private List<Estudiante> Estudiantes;
+    private List<List<Libro>> Libros;
     private static int COBRO_MOROSIDAD = 50; //CUANTO COBRA POR DIA MOROSO
     private static int DIAS_ALQUILER = 7;
     
     //Getters y Setters
-    public Estudiante[] getEstudiantes() {
+    public List<Estudiante> getEstudiantes() {
         return Estudiantes;
     }
-    public void setEstudiantes(Estudiante[] estudiantes) {
+    public void setEstudiantes(List<Estudiante> estudiantes) {
         Estudiantes = estudiantes;
     }
-    public Libro[][] getLibros() {
+    public List<List<Libro>> getLibros() {
         return Libros;
     }
-    public void setLibros(Libro[][] libros) {
+    public void setLibros(List<List<Libro>> libros) {
         Libros = libros;
     }
     
     //Funciones Principales
     
-    //Funcion para encontrar un estudiante
+    //Funcion para encontrar un estudiante devuelve -1 si no se encuentra el estudiante
     public int buscaEstudiante(String carnet){
         int result = -1;
         
-        for (int i = 0; i < Estudiantes.length; i++){
-            if (Estudiantes[i].getCarnet() == carnet){
+        for (int i = 0; i < Estudiantes.size(); i++){
+            if (Estudiantes.get(i).getCarnet() == carnet){
                 return i;
             }
         }
@@ -57,7 +57,7 @@ public class Biblioteca {
         int result = 0;
         
         //Primero buscamos al estudiante en la lista de estudiantes
-        Estudiante sujeto = Estudiantes[buscaEstudiante(carnet)];
+        Estudiante sujeto = Estudiantes.get(buscaEstudiante(carnet));
         
         List<Libro> alquilados = sujeto.getLibros_Alquilados();
         
@@ -101,17 +101,17 @@ public class Biblioteca {
             
             //Si el estudiante si existe se procede a verificar sus morosidades
             morosidades(carnet);
-            Estudiante sujeto = Estudiantes[pos_Sujeto];
+            Estudiante sujeto = Estudiantes.get(pos_Sujeto);
             if (sujeto.getMorosidades() <= 0){
                 
                 //Si no tiene morosidades si puede alquilar libros
                 //Se imprime la lista de libros disponibles
                 Scanner scanner2 = new Scanner(System.in);
                 System.out.println("Porfavor Ingrese su carnet: ");
-                int libro_Deseado = Integer.parseInt(scanner.nextLine()); //Convertimos la opcion en int
+                int libro_Deseado = Integer.parseInt(scanner2.nextLine()); //Convertimos la opcion en int
                 
                 //Ahora tomamos uno de los libros diponibles y se lo asignamos al estudiante
-                Libro alquilado = Libros[libro_Deseado][0]; //Tomamos el primero (indice 0)
+                Libro alquilado = Libros.get(libro_Deseado).get(0); //Tomamos el primero (indice 0)
                 Calendar hoy = Calendar.getInstance();
                 hoy.setTime(new Date()); //Toma el dia actual
                 alquilado.setFecha_Entregado(hoy); //Se pone que dia fue alquilado
@@ -121,6 +121,47 @@ public class Biblioteca {
                 //Ahora le asignamos el libro al estudiante
                 sujeto.agrega_Libro(alquilado);
                 System.out.println("El libro fue alquilado de manera correcta");
+            }else{
+                System.out.println("Primero debe pagar las morosidades");
+            }
+        }
+    }
+    
+    //Funcion para volver a agregar un libro a los disponibles
+    
+    //Funcion para devolver un libro
+    public void devolver_Libro(){
+        //Solicitamos el carnet del estudiante
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Porfavor Ingrese su carnet: ");
+        String carnet = scanner.nextLine();
+        
+        //Verificamos que el carnet si se encuentre en los estudiantes
+        int pos_Sujeto = buscaEstudiante(carnet); //indice en el que se encuentra el est en la lista
+        if (pos_Sujeto >= 0){
+            
+            //Si si existe
+            Estudiante sujeto = Estudiantes.get(pos_Sujeto);
+            //Despues se imprimen los libros alquilados por el estudiante
+            List<Libro> alquilados = sujeto.getLibros_Alquilados();
+            
+            //Se escoge uno de ellos
+            Scanner scanner2 = new Scanner(System.in);
+            System.out.println("Porfavor escoga un libro por devolver: ");
+            int devolucion = Integer.parseInt(scanner2.nextLine());
+            //Se revisan las morosidades
+            morosidades(carnet);
+            //Si tiene libros se deben verificar las fechas de entrega
+            Calendar hoy = Calendar.getInstance();
+            hoy.setTime(new Date()); //Obtiene la fecha actual
+            
+            //Se verifica que el libro si se entrega a tiempo
+            Libro devuelto = alquilados.get(devolucion);
+            if (hoy.before(devuelto.getFecha_Devolucion()) || hoy.equals(devuelto.getFecha_Devolucion())){
+                //Si no esta tarde para la devolucion no hay morosidad y se puede devolver
+                //Se elimina el libro del estudiante y se borran la fechas; luego se vuelve a anadir a la lista de libros 
+                alquilados.remove(devuelto); //Eliminamos el libro de la lista
+                sujeto.setLibros_Alquilados(alquilados); //Se actualiza la lista del estudiante
             }
         }
     }
