@@ -11,8 +11,24 @@ public class Libro {
     private String Serie;
     private Calendar Fecha_Entregado;
     private Calendar Fecha_Devolucion;
+
+    public Libro(String Nombre, String Autor, String Serie)
+    {
+        this.Nombre = Nombre;
+        this.Autor = Autor;
+        this.Serie = Serie;
+        
+    }
+    
+    public Libro(String Nombre, String Autor, String Serie, Calendar Fecha_Entregado, Calendar Fecha_Devolucion) {
+        this.Nombre = Nombre;
+        this.Autor = Autor;
+        this.Serie = Serie;
+        this.Fecha_Entregado = Fecha_Entregado;
+        this.Fecha_Devolucion = Fecha_Devolucion;
+    }
 	
-	
+    
     //Funcion para obtener la fecha como un str
     private String getDateTime() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

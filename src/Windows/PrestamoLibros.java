@@ -1,13 +1,37 @@
 
 package Windows;
+import java.util.ArrayList;
+import java.util.List;
+import proyecto.biblioteca.Biblioteca;
+import proyecto.biblioteca.Estudiante;
+import proyecto.biblioteca.Libro;
 
 public class PrestamoLibros extends javax.swing.JFrame {
-
-
+    private List<Libro> listaLibros = new ArrayList<Libro>() ;
+    private List<Estudiante> listaEstudiantes = new ArrayList<Estudiante>();
+    
+    Libro l1 = new Libro("Harry Potter", "JK Rowling", "32AB");
+    Libro l2 = new Libro("Señor de los anillos", "JR Tolkien", "35AB");
+    Libro l3 = new Libro("El Principito", "Antonie de Saint", "45TR");
+    Libro l4 = new Libro("Codigo Da Vinci", "Dan Brown", "19TY");
+    Libro l5 = new Libro("It", "Stephen King", "15FR");
+    Libro l6 = new Libro("Romeo y Julieta", "William Shakespeare", "11BV");
+    Estudiante e1 = new Estudiante("Joseph", "2016146661");
+    Estudiante e2 = new Estudiante("Alberto", "2016140420");
+    Estudiante e3 = new Estudiante("Juan", "2016020304");
+    Estudiante e4 = new Estudiante("Carlos", "2016171819");
+    
+    
+        
     public PrestamoLibros() {
         initComponents();
+        listaLibros.add(l1);
+        listaLibros.add(l1);
+        listaLibros.add(l1);
+        listaLibros.add(l1);
+        listaLibros.add(l1);
+ 
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,7 +67,7 @@ public class PrestamoLibros extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Digite el código del libro");
+        jLabel4.setText("Seleccione código del Libro");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -63,7 +87,7 @@ public class PrestamoLibros extends javax.swing.JFrame {
         getContentPane().add(codCarnet, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 140, -1));
         getContentPane().add(loanDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 160, -1));
 
-        librosDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        librosDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { l1.getNombre(), l2.getNombre(), l3.getNombre(), l4.getNombre(), l5.getNombre(), l6.getNombre() }));
         librosDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 librosDisponiblesActionPerformed(evt);
@@ -72,10 +96,20 @@ public class PrestamoLibros extends javax.swing.JFrame {
         getContentPane().add(librosDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 130, -1));
 
         backButton.setText("Atras");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 80, 40));
 
         confirmButton.setBackground(new java.awt.Color(51, 153, 0));
         confirmButton.setText("Confirmar");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 100, 40));
 
         morosityButton.setBackground(new java.awt.Color(0, 153, 255));
@@ -103,21 +137,34 @@ public class PrestamoLibros extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codCarnetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codCarnetActionPerformed
-
     private void librosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_librosDisponiblesActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_librosDisponiblesActionPerformed
+
+    private void morosityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_morosityButtonActionPerformed
+        for (int i = 0; i< listaLibros.size(); i++)
+        {
+            System.out.println(listaLibros.get(i).getNombre());
+        }
+    }//GEN-LAST:event_morosityButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        MainMenu menu = new MainMenu();
+        menu.setVisible(true);
+        PrestamoLibros.super.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void selectBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectBookButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectBookButtonActionPerformed
 
-    private void morosityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_morosityButtonActionPerformed
+    private void codCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codCarnetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_morosityButtonActionPerformed
+    }//GEN-LAST:event_codCarnetActionPerformed
 
     /**
      * @param args the command line arguments

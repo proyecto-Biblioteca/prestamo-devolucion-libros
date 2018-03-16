@@ -24,8 +24,8 @@ public class DevolverLibro extends javax.swing.JFrame {
         morosityReturn = new javax.swing.JButton();
         verifyReturn = new javax.swing.JButton();
         confirmReturn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        confirmButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,17 +76,17 @@ public class DevolverLibro extends javax.swing.JFrame {
         });
         getContentPane().add(confirmReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 140, -1));
 
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setText("Atras");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 90, 50));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 90, 50));
 
-        jButton2.setBackground(new java.awt.Color(51, 153, 0));
-        jButton2.setText("Confirmar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 90, 50));
+        confirmButton.setBackground(new java.awt.Color(51, 153, 0));
+        confirmButton.setText("Confirmar");
+        getContentPane().add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 90, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/blue-gradient-2.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -103,9 +103,11 @@ public class DevolverLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_confirmReturnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        MainMenu menu = new MainMenu();
+        menu.setVisible(true);
+        DevolverLibro.super.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,10 +146,10 @@ public class DevolverLibro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField codLibroDevolucion;
+    private javax.swing.JButton confirmButton;
     private javax.swing.JButton confirmReturn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,5 +1,8 @@
 
 package Windows;
+import proyecto.biblioteca.Biblioteca;
+import proyecto.biblioteca.Estudiante;
+import proyecto.biblioteca.Libro;
 
 
 public class MainMenu extends javax.swing.JFrame {
@@ -7,6 +10,8 @@ public class MainMenu extends javax.swing.JFrame {
     
     public MainMenu() {
         initComponents();
+        //Se crean la lista de estudiantes y de libros ya que no se cuenta con una base de datos
+        
     }
 
     
@@ -34,6 +39,11 @@ public class MainMenu extends javax.swing.JFrame {
         loanButton.getAccessibleContext().setAccessibleName("buttonSolicitar");
 
         returnButton.setText("Devolver Libro");
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(returnButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 140, 80));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
@@ -49,8 +59,17 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanButtonActionPerformed
-        // TODO add your handling code here:
+        PrestamoLibros prestamoLib = new PrestamoLibros();
+        prestamoLib.setVisible(true);
+        MainMenu.super.setVisible(false);
     }//GEN-LAST:event_loanButtonActionPerformed
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        DevolverLibro devolverLib = new DevolverLibro();
+        devolverLib.setVisible(true);
+        MainMenu.super.setVisible(true);
+     
+    }//GEN-LAST:event_returnButtonActionPerformed
 
    
     public static void main(String args[]) {
