@@ -121,6 +121,9 @@ public class Biblioteca {
                 System.out.println("El libro fue alquilado de manera correcta");
             }else{
                 System.out.println("Primero debe pagar las morosidades");
+                System.out.println("Historial de morosidades");
+                //Cambios sobre el historial de estudiantes
+                //Otros cambios no contemplados
             }
         }
     }
